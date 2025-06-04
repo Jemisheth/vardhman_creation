@@ -1,0 +1,10 @@
+// ignore_for_file: non_constant_identifier_names
+
+import 'package:get/get.dart';
+
+class HomeController extends GetxController {
+
+  // variables and finals
+  RxInt currentPage = 0.obs;
+  
+}
