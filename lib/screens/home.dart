@@ -6,6 +6,7 @@ import 'package:vardhman_creation/screens/cart_screen.dart';
 import 'package:vardhman_creation/screens/home_screen.dart';
 import 'package:vardhman_creation/screens/profile_screen.dart';
 import 'package:vardhman_creation/screens/wishlist_screen.dart';
+import 'package:vardhman_creation/utils/colors.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -19,41 +20,52 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      bottomNavigationBar: NavigationBar(
-        onDestinationSelected: (index) {
-          setState(() {
-            homeController.currentPage.value = index;
-          });
-        },
-        indicatorColor: Colors.amber,
-        selectedIndex: homeController.currentPage.value,
-        destinations: [
-          NavigationDestination(
-            icon: SvgPicture.asset("assets/icons/home_icon.svg"),
-            label: 'Home',
-          ),
-          NavigationDestination(
-            icon: SvgPicture.asset("assets/icons/heart_icon.svg"),
-            label: 'Wishlist',
-          ),
-          NavigationDestination(
-            icon: SvgPicture.asset("assets/icons/cart_icon.svg"),
-            label: 'Cart',
-          ),
-          NavigationDestination(
-            icon: SvgPicture.asset("assets/icons/profile_icon.svg"),
-            label: 'Profile',
-          ),
-        ],
+    return NavigationBarTheme(
+      data: NavigationBarThemeData(
+        labelTextStyle: MaterialStateProperty.resolveWith<TextStyle>((states) {
+        if (states.contains(MaterialState.selected)) {
+           // Selected label color
+        return TextStyle(color: blackColor); // Unselected label color
+        }
+        return TextStyle(color: bottomNavTextColor);
+      })
       ),
-      body:
-          <Widget>[
-            HomePageScreen(),
-            WishlistScreen(),
-            CartScreen(),
-            ProfileScreen(),
-          ][homeController.currentPage.value],
+      child: Scaffold(
+        bottomNavigationBar: NavigationBar(
+          onDestinationSelected: (index) {
+            setState(() {
+              homeController.currentPage.value = index;
+            });
+          },
+          indicatorColor: buttonBg.withOpacity(.8),
+          selectedIndex: homeController.currentPage.value,
+          destinations: [
+            NavigationDestination(
+              icon: SvgPicture.asset("assets/icons/home_icon.svg"),
+              label: 'Home',
+            ),
+            NavigationDestination(
+              icon: SvgPicture.asset("assets/icons/heart_icon.svg"),
+              label: 'Wishlist',
+            ),
+            NavigationDestination(
+              icon: SvgPicture.asset("assets/icons/cart_icon.svg"),
+              label: 'Cart',
+            ),
+            NavigationDestination(
+              icon: SvgPicture.asset("assets/icons/profile_icon.svg"),
+              label: 'Profile',
+            ),
+          ],
+        ),
+        body:
+            [
+              HomePageScreen(),
+              WishlistScreen(),
+              CartScreen(),
+              ProfileScreen(),
+            ][homeController.currentPage.value],
+      ),
     );
   }
 }
