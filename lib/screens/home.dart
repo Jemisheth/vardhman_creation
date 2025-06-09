@@ -23,12 +23,12 @@ class _HomeState extends State<Home> {
     return NavigationBarTheme(
       data: NavigationBarThemeData(
         labelTextStyle: MaterialStateProperty.resolveWith<TextStyle>((states) {
-        if (states.contains(MaterialState.selected)) {
-           // Selected label color
-        return TextStyle(color: blackColor); // Unselected label color
-        }
-        return TextStyle(color: bottomNavTextColor);
-      })
+          if (states.contains(MaterialState.selected)) {
+            // Selected label color
+            return TextStyle(color: blackColor); // Unselected label color
+          }
+          return TextStyle(color: bottomNavTextColor);
+        }),
       ),
       child: Scaffold(
         bottomNavigationBar: NavigationBar(
@@ -37,7 +37,7 @@ class _HomeState extends State<Home> {
               homeController.currentPage.value = index;
             });
           },
-          indicatorColor: buttonBg.withOpacity(.8),
+          indicatorColor: buttonBg.withValues(alpha: .8),
           selectedIndex: homeController.currentPage.value,
           destinations: [
             NavigationDestination(
